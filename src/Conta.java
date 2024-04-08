@@ -1,15 +1,49 @@
+import java.util.Scanner;
+
 public class Conta {
+
+    public static Scanner sc = new Scanner(System.in);
 
     Operacao[] operacoes = new Operacao[1000];
 
     private String nome;
-    private double saldo;
+    private double saldo = 0;
     private int ops = 0;
     private int numero;
     private double limite;
 
+    public static int totalContas;
+
     public void setNumero(int valor) {
         this.numero = valor;
+    }
+
+    public void setConta(){
+
+        System.out.println("Digite o nome da conta: ");
+        String nome = sc.nextLine();
+        this.setNome(nome);
+
+        System.out.println("Digite o numero da conta: ");
+        int numero = sc.nextInt();
+        this.setNumero(numero);
+
+        System.out.println("Digite o saldo inicial da conta: ");
+        double saldoInicial = sc.nextDouble();
+        this.depositar(saldoInicial);
+
+        this.setLimite(10000);
+
+        System.out.println("Conta atualizada com sucesso!");
+
+        totalContas++;
+
+        System.out.println("Nome: " + this.getNome() + "\n"
+                + "Saldo: " + this.getSaldo() + "\n"
+                + "Numero: " + this.getNumero() + "\n"
+                + "Limite: " + this.getLimite());
+
+        sc.nextLine();
     }
 
     public void setLimite(double valor) {
@@ -29,6 +63,7 @@ public class Conta {
             this.operacoes[this.ops] = new Operacao('d', valor);
             return true;
         } else {
+            System.out.println("Valor invalido");
             return false;
         }
     }
@@ -41,6 +76,7 @@ public class Conta {
             this.operacoes[this.ops] = new Operacao('s', valor);
             return true;
         } else {
+            System.out.println("Saldo insuficiente");
             return false;
         }
     }
